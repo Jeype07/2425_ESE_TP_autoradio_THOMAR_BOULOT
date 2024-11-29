@@ -69,7 +69,7 @@ int __io_putchar(int ch)
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-	if (huart->Instance == USART1)
+	if (huart->Instance == USART2)
 	{
 		shell_uart_receive_irq_cb();	// C'est la fonction qui donne le sémaphore!
 	}
@@ -168,9 +168,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	while (1)
 	{
-		printf("led clignote\r\n");
-		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-		HAL_Delay(1000);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
