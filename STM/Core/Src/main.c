@@ -162,9 +162,9 @@ void task_chenillard(void * params) {
 			h_shell->drv.led(h_shell->led_num = current_led_b,0x13);
 			current_led_a = (current_led_a + 1) % NUM_LEDS; // Passer à la LED suivante
 			current_led_b = (current_led_b + 1) % NUM_LEDS;
-			vTaskDelay(pdMS_TO_TICKS(200)); // Délai entre deux LEDs (200 ms)
+			osDelay(200); // Délai entre deux LEDs (200 ms)
 		} else {
-			vTaskDelay(pdMS_TO_TICKS(50)); // Petit délai pour éviter une boucle infinie rapide
+			osDelay(50); // Petit délai pour éviter une boucle infinie rapide
 		}
 	}
 }

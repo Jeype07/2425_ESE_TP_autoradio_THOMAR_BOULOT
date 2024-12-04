@@ -27,25 +27,25 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  0000c078  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00022464  00000000  00000000  0000c0a8  2**0
+ 12 .debug_info   0002245b  00000000  00000000  0000c0a8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00004f5d  00000000  00000000  0002e50c  2**0
+ 13 .debug_abbrev 00004f5b  00000000  00000000  0002e503  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00001d00  00000000  00000000  00033470  2**3
+ 14 .debug_aranges 00001d00  00000000  00000000  00033460  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_rnglists 00001685  00000000  00000000  00035170  2**0
+ 15 .debug_rnglists 00001685  00000000  00000000  00035160  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  0002c5db  00000000  00000000  000367f5  2**0
+ 16 .debug_macro  0002c5db  00000000  00000000  000367e5  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   000261d0  00000000  00000000  00062dd0  2**0
+ 17 .debug_line   000261d0  00000000  00000000  00062dc0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00105115  00000000  00000000  00088fa0  2**0
+ 18 .debug_str    00105115  00000000  00000000  00088f90  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  0018e0b5  2**0
+ 19 .comment      00000043  00000000  00000000  0018e0a5  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000080e8  00000000  00000000  0018e0f8  2**2
+ 20 .debug_frame  000080e8  00000000  00000000  0018e0e8  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 000000a3  00000000  00000000  001961e0  2**0
+ 21 .debug_line_str 000000a3  00000000  00000000  001961d0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1269,14 +1269,14 @@ void task_chenillard(void * params) {
  8000ac8:	bf58      	it	pl
  8000aca:	4253      	negpl	r3, r2
  8000acc:	73bb      	strb	r3, [r7, #14]
-			vTaskDelay(pdMS_TO_TICKS(200)); // Délai entre deux LEDs (200 ms)
+			osDelay(200); // Délai entre deux LEDs (200 ms)
  8000ace:	20c8      	movs	r0, #200	@ 0xc8
- 8000ad0:	f006 fe54 	bl	800777c <vTaskDelay>
+ 8000ad0:	f006 fb4c 	bl	800716c <osDelay>
  8000ad4:	e7c8      	b.n	8000a68 <task_chenillard+0x14>
 		} else {
-			vTaskDelay(pdMS_TO_TICKS(50)); // Petit délai pour éviter une boucle infinie rapide
+			osDelay(50); // Petit délai pour éviter une boucle infinie rapide
  8000ad6:	2032      	movs	r0, #50	@ 0x32
- 8000ad8:	f006 fe50 	bl	800777c <vTaskDelay>
+ 8000ad8:	f006 fb48 	bl	800716c <osDelay>
 		if (chenillard_running) {
  8000adc:	e7c4      	b.n	8000a68 <task_chenillard+0x14>
  8000ade:	bf00      	nop
