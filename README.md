@@ -9,6 +9,13 @@ Il est question ici de prendre en main et d'utiliser le CODEC Audio SGTL5000 dan
 ### 2.1 Configuration
 1. La référence du GPIO Expander est MCP23S17-E/SO.
 2. On utilise le SPI 3.
-3. 
+3. Sur STM32CubeIDE, il faut configuer les paramètres suivants :  
+#### Configurer les signaux suivants dans l'ioc
+- VU_nRESET : PA0 (GPIO_Output)
+- VU_SCK : PC10 (SPI3_SCK)
+- VU_nCS : PB7 (GPIO_Output)
+- VU_MOSI : PB5 (SPI3_MOSI)
+- VU_MISO : PC11 (SPI3_MISO)
+
 ### 2.2 Tests
 
