@@ -152,17 +152,18 @@ int ledToggle(h_shell_t * h_shell, int argc, char ** argv)
 	}
 }
 
-void task_chenillard(void * params) {
+void task_chenillard(void *params) {
 	h_shell_t *h_shell = (h_shell_t *)params;
-	int current_led_a = 0;
-	int current_led_b = 4;
-
+	uint8_t current_led_a = 0;
+	//uint8_t current_led_b = 4;
+	printf("0\r\n");
 	while (1) {
-		h_shell->drv.led(h_shell->led_num = 0xaa,0x12);
-		h_shell->drv.led(h_shell->led_num = current_led_b,0x13);
+		h_shell->drv.led(h_shell->led_num = current_led_a,0x12);
+
+		//h_shell->drv.led(h_shell->led_num = current_led_b,0x13);
 		current_led_a = (current_led_a + 1) % NUM_LEDS; // Passer à la LED suivante
-		current_led_b = (current_led_b + 1) % NUM_LEDS;
-		osDelay(200); // Délai entre deux LEDs (200 ms)
+		//current_led_b = (current_led_b + 1) % NUM_LEDS;
+		osDelay(500); // Délai entre deux LEDs (200 ms)
 
 	}
 }
@@ -171,14 +172,14 @@ void task_chenillard(void * params) {
 
 int startchenillard(h_shell_t * h_shell, int argc, char ** argv){
 
-	if(chenillard_running == 0){
-		chenillard_running = 1; // Activer le chenillard
-		if (ChenillardTaskHandle == NULL) {
+	chenillard_running = 1; // Activer le chenillard
+	if (ChenillardTaskHandle == NULL) {
 
-			// Créer la tâche si elle n'existe pas
-			xTaskCreate(task_chenillard, "ChenillardTask", 128, NULL, 0, &ChenillardTaskHandle);
-		}
+		// Créer la tâche si elle n'existe pas
+		xTaskCreate(task_chenillard, "ChenillardTask", 128,(void *)h_shell, 2, &ChenillardTaskHandle);
+
 	}
+
 	else{
 		chenillard_running = 0;
 		if (ChenillardTaskHandle != NULL) {
