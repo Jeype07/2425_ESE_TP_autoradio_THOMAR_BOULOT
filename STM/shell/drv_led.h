@@ -21,7 +21,7 @@
 #include <stdint.h>
 
 void MCP23S17_Init( void);
-uint8_t drv_led(uint8_t led_num, gpio);
+uint8_t drv_led(uint8_t led_num, uint8_t gpio);
 void MCP23S17_Write( uint8_t reg, uint8_t value);
 
 #endif /* DRV_LED_H_ */

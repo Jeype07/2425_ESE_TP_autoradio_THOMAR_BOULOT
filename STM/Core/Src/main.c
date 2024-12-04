@@ -124,9 +124,8 @@ int ledToggle(h_shell_t * h_shell, int argc, char ** argv)
 	{
 		int a;
 		a = atoi(argv[1]);
-		gpio = atoi(argv[2]);
+		int gpio = atoi(argv[2]);
 		if((a>=0 && a<=7)!=0){
-			etat_des_LEDs ^= (1 << a);
 			h_shell->drv.led(h_shell->a,gpio);
 		}
 		return 0;
