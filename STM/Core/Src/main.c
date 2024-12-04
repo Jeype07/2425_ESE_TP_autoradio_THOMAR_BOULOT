@@ -33,6 +33,7 @@
 #include "shell.h"
 #include "drv_uart2.h"
 #include "drv_led.h"
+#include "sgtl5000.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
