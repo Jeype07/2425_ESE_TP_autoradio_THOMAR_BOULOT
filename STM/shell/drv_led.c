@@ -9,9 +9,8 @@
 #include "spi.h"
 
 void MCP23S17_Init( void){
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
-	//MCP23S17_Write(IOCON, IOCON_BANK);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET); //reset High
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);	//CS High
 
 	// Configurer tous les GPIO comme sorties
 	MCP23S17_Write(IODIRA, 0x00);
@@ -30,7 +29,7 @@ void MCP23S17_Write( uint8_t reg, uint8_t value) {
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);   // CS High
 }
 
-uint8_t drv_led(uint8_t led_num, uint8_t gpio)
+uint8_t drv_led(uint8_t led_num, gpio)
 {
 	uint8_t etat_des_LEDs = 0xff;
 	if((led_num>=0 && led_num<=7)!=0){

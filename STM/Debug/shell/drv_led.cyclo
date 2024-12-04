@@ -1,3 +1,0 @@
-../shell/drv_led.c:11:6:MCP23S17_Init	1
-../shell/drv_led.c:26:6:MCP23S17_Write	1
-../shell/drv_led.c:33:9:drv_led	2

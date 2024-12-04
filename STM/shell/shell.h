@@ -13,7 +13,8 @@ typedef uint8_t (* drv_shell_transmit_t)(const char * pData, uint16_t size);
 typedef uint8_t (* drv_shell_receive_t)(char * pData, uint16_t size);
 
 typedef uint8_t (* drv_shell_led)(uint8_t led_num, uint8_t gpio);
-typedef void (* drv_shell_MCP23S17)( uint8_t reg, uint8_t value);
+typedef void (* drv_shell_MCP23S17_write)( uint8_t reg, uint8_t value);
+typedef void (* drv_shell_MCP23S17_init)(void);
 
 typedef struct shell_func_struct
 {
@@ -26,7 +27,8 @@ typedef struct drv_shell_struct
 {
     drv_shell_transmit_t transmit;
     drv_shell_receive_t receive;
-    drv_shell_MCP23S17 MCP23S17;
+    drv_shell_MCP23S17_write write;
+    drv_shell_MCP23S17_init init;
     drv_shell_led led;
 } drv_shell_t;
 

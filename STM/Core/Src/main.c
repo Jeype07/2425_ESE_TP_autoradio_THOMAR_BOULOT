@@ -122,19 +122,12 @@ int ledToggle(h_shell_t * h_shell, int argc, char ** argv)
 {
 	if (argc == 3)
 	{
-		uint8_t etat_des_LEDs = 0xff;
 		int a;
 		a = atoi(argv[1]);
+		gpio = atoi(argv[2]);
 		if((a>=0 && a<=7)!=0){
 			etat_des_LEDs ^= (1 << a);
-		}
-		if(atoi(argv[2])==0){
-			// Allumer la LED (GPB0 à HIGH)
-			MCP23S17_Write(MCPGPIOA, etat_des_LEDs);
-		}
-		if(atoi(argv[2])==1){
-			// Allumer la LED (GPB0 à HIGH)
-			MCP23S17_Write(MCPGPIOB, etat_des_LEDs);
+			h_shell->drv.led(h_shell->a,gpio);
 		}
 		return 0;
 	}

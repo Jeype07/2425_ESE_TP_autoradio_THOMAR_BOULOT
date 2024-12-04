@@ -15,12 +15,13 @@
 #define IODIRA  0x00
 #define IODIRB  0x01
 
-#define MCPGPIOA   0x12
-#define MCPGPIOB   0x13
+#define MCPGPIOA   (uint8_t)0x12
+#define MCPGPIOB   (uint8_t)0x13
 
 #include <stdint.h>
 
-uint8_t drv_led(uint8_t led_num, uint8_t gpio);
+void MCP23S17_Init( void);
+uint8_t drv_led(uint8_t led_num, gpio);
 void MCP23S17_Write( uint8_t reg, uint8_t value);
 
 #endif /* DRV_LED_H_ */
