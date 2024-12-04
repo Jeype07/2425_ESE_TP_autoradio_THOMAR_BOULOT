@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include "shell.h"
 #include "drv_uart2.h"
+#include "drv_led.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -144,12 +145,6 @@ int ledToggle(h_shell_t * h_shell, int argc, char ** argv)
 	}
 }
 
-void Control_LED(uint8_t led_num, uint8_t gpio) {
-	uint8_t etat_des_LEDs = 0xff;      // Éteindre toutes les LEDs
-	etat_des_LEDs &= ~(1 << led_num);  // Allumer la LED spécifiée
-	MCP23S17_Write(gpio, etat_des_LEDs);
-}
-
 void task_chenillard() {
 	uint8_t current_led_a = 0;
 	uint8_t current_led_b = 4;
@@ -233,18 +228,6 @@ int main(void)
 	MX_USART2_UART_Init();
 	MX_SPI3_Init();
 	/* USER CODE BEGIN 2 */
-
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
-	//MCP23S17_Write(IOCON, IOCON_BANK);
-
-	// Configurer tous les GPIOB comme sorties
-	MCP23S17_Write(IODIRA, 0x00);
-	MCP23S17_Write(IODIRB, 0x00);
-
-	// Eteindre toutes les led
-	MCP23S17_Write(MCPGPIOA, 0xff);
-	MCP23S17_Write(MCPGPIOB, 0xff);
 
 	h_shell.drv.receive = drv_uart2_receive;
 	h_shell.drv.transmit = drv_uart2_transmit;

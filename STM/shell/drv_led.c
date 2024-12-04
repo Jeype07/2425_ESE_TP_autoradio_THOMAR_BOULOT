@@ -8,6 +8,20 @@
 #include "drv_led.h"
 #include "spi.h"
 
+void MCP23S17_Init( void){
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
+	//MCP23S17_Write(IOCON, IOCON_BANK);
+
+	// Configurer tous les GPIO comme sorties
+	MCP23S17_Write(IODIRA, 0x00);
+	MCP23S17_Write(IODIRB, 0x00);
+
+	// Eteindre toutes les led
+	MCP23S17_Write(MCPGPIOA, 0xff);
+	MCP23S17_Write(MCPGPIOB, 0xff);
+}
+
 // Fonction pour écrire dans un registre du MCP23S17
 void MCP23S17_Write( uint8_t reg, uint8_t value) {
 	uint8_t data[3] = {MCP23S17_ADDR_WRITE, reg, value};
