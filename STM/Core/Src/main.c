@@ -41,15 +41,7 @@
 #define TASK_SHELL_STACK_DEPTH 512
 #define TASK_SHELL_PRIORITY 1
 
-//MCP2317 REGISTER
-#define MCP23S17_ADDR_WRITE  0x40
-#define MCP23S17_ADDR_READ  0x41
 
-#define IODIRA  0x00
-#define IODIRB  0x01
-
-#define MCPGPIOA   0x12
-#define MCPGPIOB   0x13
 
 #define NUM_LEDS 8 // Nombre de LEDs contrôlées
 /* USER CODE END PD */
@@ -122,37 +114,8 @@ int addition(h_shell_t * h_shell, int argc, char ** argv)
 	}
 }
 
-// Fonction pour écrire dans un registre du MCP23S17
-void MCP23S17_Write( uint8_t reg, uint8_t value) {
-	uint8_t data[3] = {MCP23S17_ADDR_WRITE, reg, value};
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET); // CS Low
-	HAL_Delay(10);
-	HAL_SPI_Transmit(&hspi3, data, 3, HAL_MAX_DELAY);
-	HAL_Delay(10);
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);   // CS High
-}
-/*
-uint8_t MCP23S17_Read(uint8_t reg) {
-    uint8_t txBuffer[2];
-    uint8_t rxBuffer[1];
 
-    // Prépare le buffer de transmission
-    txBuffer[0] = MCP23S17_SLAVE_ADDRESS | MCP23S17_READ_CMD; // Adresse + Lire
-    txBuffer[1] = reg;                                       // Adresse du registre
 
-    // Sélectionner le périphérique SPI (mettre CS à bas)
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET); // Active CS (par exemple sur PA4)
-
-    // Transmet l'adresse et le registre, et reçoit la réponse
-    HAL_SPI_Transmit(&hspi1, txBuffer, 2, HAL_MAX_DELAY); // Envoi de la commande
-    HAL_SPI_Receive(&hspi1, rxBuffer, 1, HAL_MAX_DELAY);  // Lecture de la réponse
-
-    // Désélectionner le périphérique SPI (mettre CS à haut)
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET); // Désactive CS
-
-    return rxBuffer[0]; // Retourne la valeur lue
-}
-*/
 int ledToggle(h_shell_t * h_shell, int argc, char ** argv)
 {
 	if (argc == 3)

@@ -12,6 +12,9 @@ typedef int (*shell_func_pointer_t)(struct h_shell_struct * h_shell, int argc, c
 typedef uint8_t (* drv_shell_transmit_t)(const char * pData, uint16_t size);
 typedef uint8_t (* drv_shell_receive_t)(char * pData, uint16_t size);
 
+typedef uint8_t (* drv_shell_led)(uint8_t led_num, uint8_t gpio);
+typedef void (* drv_shell_MCP23S17)( uint8_t reg, uint8_t value);
+
 typedef struct shell_func_struct
 {
 	char c;
@@ -23,6 +26,8 @@ typedef struct drv_shell_struct
 {
     drv_shell_transmit_t transmit;
     drv_shell_receive_t receive;
+    drv_shell_MCP23S17 MCP23S17;
+    drv_shell_led led;
 } drv_shell_t;
 
 typedef struct h_shell_struct
