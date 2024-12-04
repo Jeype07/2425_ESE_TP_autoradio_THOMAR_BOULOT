@@ -157,14 +157,14 @@ void task_chenillard(void * params) {
 	int current_led_a = 0;
 	int current_led_b = 4;
 	while (1) {
-
 		if (chenillard_running) {
-			printf("tache\r\n");
+			h_shell->drv.led(h_shell->led_num = current_led_a,0x12);
 			h_shell->drv.led(h_shell->led_num = current_led_b,0x13);
-			printf("tache\r\n");
+			current_led_a = (current_led_a + 1) % NUM_LEDS; // Passer à la LED suivante
+			current_led_b = (current_led_b + 1) % NUM_LEDS;
 			osDelay(200); // Délai entre deux LEDs (200 ms)
 		} else {
-			osDelay(1000); // Petit délai pour éviter une boucle infinie rapide
+			osDelay(50); // Petit délai pour éviter une boucle infinie rapide
 		}
 	}
 }
