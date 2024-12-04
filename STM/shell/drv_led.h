@@ -15,8 +15,8 @@
 #define IODIRA  0x00
 #define IODIRB  0x01
 
-#define MCPGPIOA   (uint8_t)0x12
-#define MCPGPIOB   (uint8_t)0x13
+#define MCPGPIOA   0x12
+#define MCPGPIOB   0x13
 
 #include <stdint.h>
 

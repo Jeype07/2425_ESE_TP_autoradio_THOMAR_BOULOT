@@ -27,13 +27,11 @@ typedef struct drv_shell_struct
 {
 	drv_shell_transmit_t transmit;
 	drv_shell_receive_t receive;
-} drv_shell_t;
-
-typedef struct drv_MCP23S17_struct{
 	drv_shell_MCP23S17_write write;
 	drv_shell_MCP23S17_init init;
 	drv_shell_led led;
-}drv_MCP23S17_t;
+} drv_shell_t;
+
 
 typedef struct h_shell_struct
 {
