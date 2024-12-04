@@ -125,21 +125,22 @@ int ledToggle(h_shell_t * h_shell, int argc, char ** argv)
 {
 	if (argc == 3)
 	{
+
 		int a = atoi(argv[1]);
 		int b = atoi(argv[2]);
 		if((a>=0 && a<=7)!=0){
-			if(b==atoi("a")){
-				uint8_t gpio = 0x12;
-				h_shell->drv.led(h_shell->led_num = a,gpio);
+			if(b==0){
+
+				h_shell->drv.led(h_shell->led_num = a,0x12);
 			}
-			if(b==atoi("b")){
-				uint8_t gpio = 0x13;
-							h_shell->drv.led(h_shell->led_num = a,gpio);
-						}
+			if(b==1){
+
+				h_shell->drv.led(h_shell->led_num = a,0x13);
+			}
 			else{
-				int size = snprintf (h_shell->print_buffer, BUFFER_SIZE, "Erreur, vérifier la led ou le gpio\r\n");
-						h_shell->drv.transmit(h_shell->print_buffer, size);
-						return -2;
+				int size = snprintf (h_shell->print_buffer, BUFFER_SIZE, "Erreur, verifier la led ou le gpio\r\n");
+				h_shell->drv.transmit(h_shell->print_buffer, size);
+				return -2;
 			}
 		}
 
@@ -153,7 +154,7 @@ int ledToggle(h_shell_t * h_shell, int argc, char ** argv)
 	}
 }
 
-/*void task_chenillard(void * unused) {
+void task_chenillard(void * unused) {
 	uint8_t current_led_a = 0;
 	uint8_t current_led_b = 4;
 
@@ -189,7 +190,7 @@ int stopChenillard(h_shell_t * h_shell, int argc, char ** argv) {
 	}
 	return 0;
 }
-*/
+
 
 void task_shell(void * unused)
 {
@@ -248,6 +249,8 @@ int main(void)
 
 	h_shell.drv.receive = drv_uart2_receive;
 	h_shell.drv.transmit = drv_uart2_transmit;
+	h_shell.drv.init = MCP23S17_Init;
+	h_shell.drv.led = drv_led;
 
 
 	if (xTaskCreate(task_shell, "Shell", TASK_SHELL_STACK_DEPTH, NULL, TASK_SHELL_PRIORITY, &h_task_shell) != pdPASS)
