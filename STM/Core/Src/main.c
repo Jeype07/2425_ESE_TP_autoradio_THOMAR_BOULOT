@@ -158,19 +158,19 @@ void task_chenillard(void * params) {
 	int current_led_b = 4;
 	while (1) {
 		if (chenillard_running) {
-			h_shell->drv.led(h_shell->led_num = current_led_a,0x12);
+			printf("tache\r\n");
 			h_shell->drv.led(h_shell->led_num = current_led_b,0x13);
-			current_led_a = (current_led_a + 1) % NUM_LEDS; // Passer à la LED suivante
-			current_led_b = (current_led_b + 1) % NUM_LEDS;
+			printf("tache\r\n");
 			osDelay(200); // Délai entre deux LEDs (200 ms)
 		} else {
-			osDelay(50); // Petit délai pour éviter une boucle infinie rapide
+			osDelay(1000); // Petit délai pour éviter une boucle infinie rapide
 		}
 	}
 }
 
 
-int chenillard(h_shell_t * h_shell, int argc, char ** argv){
+int startchenillard(h_shell_t * h_shell, int argc, char ** argv){
+
 	if(chenillard_running == 0){
 		chenillard_running = 1; // Activer le chenillard
 		if (ChenillardTaskHandle == NULL) {
@@ -200,7 +200,7 @@ void task_shell(void * unused)
 	shell_add(&h_shell, 'f', fonction, "Une fonction inutile");
 	shell_add(&h_shell, 'a', addition, "Effectue une somme");
 	shell_add(&h_shell, 'b', ledToggle, "Allumer une led");
-	shell_add(&h_shell, 'c',chenillard, "Lancer chenillard/Arreter chenillard");
+	shell_add(&h_shell, 'c',startchenillard, "Lancer chenillard/Arreter chenillard");
 	shell_run(&h_shell);	// boucle infinie
 }
 
