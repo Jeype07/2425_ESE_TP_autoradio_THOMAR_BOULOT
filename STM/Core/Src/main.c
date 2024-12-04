@@ -154,8 +154,8 @@ int ledToggle(h_shell_t * h_shell, int argc, char ** argv)
 
 void task_chenillard(void * params) {
 	h_shell_t *h_shell = (h_shell_t *)params;
-	uint8_t current_led_a = 0;
-	uint8_t current_led_b = 4;
+	int current_led_a = 0;
+	int current_led_b = 4;
 	while (1) {
 		if (chenillard_running) {
 			h_shell->drv.led(h_shell->led_num = current_led_a,0x12);
