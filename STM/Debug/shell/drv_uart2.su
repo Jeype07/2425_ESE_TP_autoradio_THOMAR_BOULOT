@@ -1,2 +1,2 @@
-../shell/drv_uart2.c:11:9:drv_uart1_receive	16	static
-../shell/drv_uart2.c:18:9:drv_uart1_transmit	16	static
+../shell/drv_uart2.c:11:9:drv_uart2_receive	16	static
+../shell/drv_uart2.c:18:9:drv_uart2_transmit	16	static
