@@ -231,6 +231,8 @@ int main(void)
   MX_SAI2_Init();
   /* USER CODE BEGIN 2 */
 
+  __HAL_SAI_ENABLE(&hsai_BlockA2);
+
 	h_shell.drv.receive = drv_uart2_receive;
 	h_shell.drv.transmit = drv_uart2_transmit;
 
