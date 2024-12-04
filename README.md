@@ -19,3 +19,11 @@ Il est question ici de prendre en main et d'utiliser le CODEC Audio SGTL5000 dan
 
 ### 2.2 Tests
 
+
+## Le CODEC Audio SGTL5000
+
+### 3.1 Configuration préalables
+
+1. Les pin utilisé pour l'I2C sont PB10 et PB11 et cela correspond à l'I2C 2
+2. 
+
