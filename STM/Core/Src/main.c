@@ -157,6 +157,7 @@ void task_chenillard(void * params) {
 	int current_led_a = 0;
 	int current_led_b = 4;
 	while (1) {
+
 		if (chenillard_running) {
 			printf("tache\r\n");
 			h_shell->drv.led(h_shell->led_num = current_led_b,0x13);
