@@ -33,7 +33,7 @@ void MCP23S17_Write( uint8_t reg, uint8_t value) {
 
 uint8_t drv_led(uint8_t led_num, uint8_t gpio)
 {
-	MCP23S17_Init();
+
 
 	if((led_num>=0 && led_num<=7)!=0){
 		etat_des_LEDs ^= (1 << led_num);

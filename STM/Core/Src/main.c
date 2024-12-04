@@ -155,16 +155,16 @@ int ledToggle(h_shell_t * h_shell, int argc, char ** argv)
 
 void task_chenillard(void *params) {
 	h_shell_t *h_shell = (h_shell_t *)params;
-	uint8_t current_led_a = 0;
+	uint8_t current_led = 0;
 	//uint8_t current_led_b = 4;
 	printf("0\r\n");
 	while (1) {
-		h_shell->drv.led(h_shell->led_num = current_led_a,0x12);
 
-		//h_shell->drv.led(h_shell->led_num = current_led_b,0x13);
-		current_led_a = (current_led_a + 1) % NUM_LEDS; // Passer à la LED suivante
+		h_shell->drv.led(h_shell->led_num = current_led,MCPGPIOA);
+		//h_shell->drv.led(h_shell->led_num = current_led,MCPGPIOB);
+		current_led = (current_led + 1) % NUM_LEDS; // Passer à la LED suivante
 		//current_led_b = (current_led_b + 1) % NUM_LEDS;
-		osDelay(500); // Délai entre deux LEDs (200 ms)
+		osDelay(200); // Délai entre deux LEDs (200 ms)
 
 	}
 }
@@ -247,7 +247,7 @@ int main(void)
 	MX_I2C2_Init();
 	MX_SAI2_Init();
 	/* USER CODE BEGIN 2 */
-
+	MCP23S17_Init();
 	__HAL_SAI_ENABLE(&hsai_BlockA2);
 	sglt5000_get_CHIP_ID_val();
 

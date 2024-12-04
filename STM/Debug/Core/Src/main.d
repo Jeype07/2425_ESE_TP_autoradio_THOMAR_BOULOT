@@ -53,7 +53,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/spi.h ../Core/Inc/usart.h ../Core/Inc/gpio.h \
  C:/Users/paul_/OneDrive/Bureau/ESE/2425_ESE_TP_autoradio_THOMAR_BOULOT/STM/shell/shell.h \
  C:/Users/paul_/OneDrive/Bureau/ESE/2425_ESE_TP_autoradio_THOMAR_BOULOT/STM/shell/drv_uart2.h \
- C:/Users/paul_/OneDrive/Bureau/ESE/2425_ESE_TP_autoradio_THOMAR_BOULOT/STM/shell/drv_led.h
+ C:/Users/paul_/OneDrive/Bureau/ESE/2425_ESE_TP_autoradio_THOMAR_BOULOT/STM/shell/drv_led.h \
+ ../Core/Inc/sgtl5000.h
 ../Core/Inc/main.h:
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h:
 ../Core/Inc/stm32l4xx_hal_conf.h:
@@ -115,3 +116,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 C:/Users/paul_/OneDrive/Bureau/ESE/2425_ESE_TP_autoradio_THOMAR_BOULOT/STM/shell/shell.h:
 C:/Users/paul_/OneDrive/Bureau/ESE/2425_ESE_TP_autoradio_THOMAR_BOULOT/STM/shell/drv_uart2.h:
 C:/Users/paul_/OneDrive/Bureau/ESE/2425_ESE_TP_autoradio_THOMAR_BOULOT/STM/shell/drv_led.h:
+../Core/Inc/sgtl5000.h:
