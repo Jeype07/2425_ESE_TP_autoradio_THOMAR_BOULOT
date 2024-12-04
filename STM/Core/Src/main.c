@@ -247,6 +247,7 @@ int main(void)
 	/* USER CODE BEGIN 2 */
 
 	__HAL_SAI_ENABLE(&hsai_BlockA2);
+	sglt5000_get_CHIP_ID_val();
 
 	h_shell.drv.receive = drv_uart2_receive;
 	h_shell.drv.transmit = drv_uart2_transmit;
