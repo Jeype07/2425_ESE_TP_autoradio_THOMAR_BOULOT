@@ -88,6 +88,7 @@ static int shell_exec(h_shell_t * h_shell, char * buf) {
 	for(i = 0 ; i < h_shell->func_list_size ; i++) {
 		if (h_shell->func_list[i].c == c) {
 			argc = 1;
+			if (sizeof(argv[0])==1){
 			argv[0] = buf;
 
 			for(p = buf ; *p != '\0' && argc < ARGC_MAX ; p++){
@@ -98,7 +99,7 @@ static int shell_exec(h_shell_t * h_shell, char * buf) {
 			}
 
 			return h_shell->func_list[i].func(h_shell, argc, argv);
-		}
+		}}
 	}
 
 	int size;

@@ -4,5 +4,5 @@
 ../shell/shell.c:42:12:sh_help	48	static
 ../shell/shell.c:53:6:shell_init	24	static
 ../shell/shell.c:67:5:shell_add	24	static
-../shell/shell.c:79:12:shell_exec	72	static
-../shell/shell.c:113:5:shell_run	32	static
+../shell/shell.c:79:12:shell_exec	64	static
+../shell/shell.c:114:5:shell_run	32	static

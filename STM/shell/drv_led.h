@@ -23,5 +23,6 @@
 void MCP23S17_Init( void);
 uint8_t drv_led(uint8_t led_num, uint8_t gpio);
 void MCP23S17_Write( uint8_t reg, uint8_t value);
+uint8_t drv_led_reset( uint8_t rst);
 
 #endif /* DRV_LED_H_ */

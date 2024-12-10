@@ -65,6 +65,8 @@ TaskHandle_t ChenillardTaskHandle = NULL;
 volatile uint8_t chenillard_running = 0; // Flag pour le contrôle du chenillard
 
 h_shell_t h_shell;
+
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -122,19 +124,20 @@ int addition(h_shell_t * h_shell, int argc, char ** argv)
 
 int ledToggle(h_shell_t * h_shell, int argc, char ** argv)
 {
+
 	if (argc == 3)
 	{
 
 		int a = atoi(argv[1]);
 		int b = atoi(argv[2]);
-		if((a>=0 && a<=7)!=0){
+		if(a>=0 && a<=7){
 			if(b==0){
 
-				h_shell->drv.led(h_shell->led_num = a,0x12);
+				h_shell->drv.led(h_shell->led_num = a,MCPGPIOA);
 			}
 			if(b==1){
 
-				h_shell->drv.led(h_shell->led_num = a,0x13);
+				h_shell->drv.led(h_shell->led_num = a,MCPGPIOB);
 			}
 			else{
 				int size = snprintf (h_shell->print_buffer, BUFFER_SIZE, "Erreur, verifier la led ou le gpio\r\n");
@@ -153,19 +156,23 @@ int ledToggle(h_shell_t * h_shell, int argc, char ** argv)
 	}
 }
 
+int ledReset(h_shell_t * h_shell, int argc, char ** argv){
+	MCP23S17_Write(MCPGPIOA, -1);
+	MCP23S17_Write(MCPGPIOB, -1);
+	return 0;
+}
+
 void task_chenillard(void *params) {
 	h_shell_t *h_shell = (h_shell_t *)params;
-	uint8_t current_led = 0;
-	//uint8_t current_led_b = 4;
-	printf("0\r\n");
+	uint8_t current_led_a = 0;
+	uint8_t current_led_b = 4;
 	while (1) {
 
-		h_shell->drv.led(h_shell->led_num = current_led,MCPGPIOA);
-		//h_shell->drv.led(h_shell->led_num = current_led,MCPGPIOB);
-		current_led = (current_led + 1) % NUM_LEDS; // Passer à la LED suivante
-		//current_led_b = (current_led_b + 1) % NUM_LEDS;
+		h_shell->drv.led(h_shell->led_num = current_led_a,MCPGPIOA);
+		h_shell->drv.led(h_shell->led_num = current_led_b,MCPGPIOB);
+		current_led_a = (current_led_a + 1) % NUM_LEDS; // Passer à la LED suivante
+		current_led_b = (current_led_b + 1) % NUM_LEDS;
 		osDelay(200); // Délai entre deux LEDs (200 ms)
-
 	}
 }
 
@@ -175,19 +182,14 @@ int startchenillard(h_shell_t * h_shell, int argc, char ** argv){
 
 	chenillard_running = 1; // Activer le chenillard
 	if (ChenillardTaskHandle == NULL) {
-
 		// Créer la tâche si elle n'existe pas
 		xTaskCreate(task_chenillard, "ChenillardTask", 128,(void *)h_shell, 2, &ChenillardTaskHandle);
-
 	}
-
 	else{
 		chenillard_running = 0;
 		if (ChenillardTaskHandle != NULL) {
 			vTaskDelete(ChenillardTaskHandle); // Supprimer la tâche
 			ChenillardTaskHandle = NULL;
-			MCP23S17_Write(MCPGPIOA, 0xff);
-			MCP23S17_Write(MCPGPIOB, 0xff);
 		}
 	}
 
@@ -202,7 +204,9 @@ void task_shell(void * unused)
 	shell_add(&h_shell, 'f', fonction, "Une fonction inutile");
 	shell_add(&h_shell, 'a', addition, "Effectue une somme");
 	shell_add(&h_shell, 'b', ledToggle, "Allumer une led");
-	shell_add(&h_shell, 'c',startchenillard, "Lancer chenillard/Arreter chenillard");
+	shell_add(&h_shell, 'c', ledReset, "Eteindre toutes les leds");
+	shell_add(&h_shell, 'd',startchenillard, "Lancer chenillard/Arreter chenillard");
+
 	shell_run(&h_shell);	// boucle infinie
 }
 
@@ -253,9 +257,7 @@ int main(void)
 
 	h_shell.drv.receive = drv_uart2_receive;
 	h_shell.drv.transmit = drv_uart2_transmit;
-	h_shell.drv.init = MCP23S17_Init;
 	h_shell.drv.led = drv_led;
-
 
 	if (xTaskCreate(task_shell, "Shell", TASK_SHELL_STACK_DEPTH, NULL, TASK_SHELL_PRIORITY, &h_task_shell) != pdPASS)
 	{

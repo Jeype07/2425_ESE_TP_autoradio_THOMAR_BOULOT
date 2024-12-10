@@ -8,7 +8,8 @@
 #include "drv_led.h"
 #include "spi.h"
 
-uint8_t etat_des_LEDs = 0xff;
+uint8_t etat_des_LEDAs = 0xff;
+uint8_t etat_des_LEDBs = 0xff;
 
 void MCP23S17_Init( void){
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET); //reset High
@@ -33,13 +34,20 @@ void MCP23S17_Write( uint8_t reg, uint8_t value) {
 
 uint8_t drv_led(uint8_t led_num, uint8_t gpio)
 {
+	if(led_num==-1){
+		etat_des_LEDAs =0xff;
+		etat_des_LEDBs =0xff;
+		MCP23S17_Write(gpio, etat_des_LEDAs);
 
-
-	if((led_num>=0 && led_num<=7)!=0){
-		etat_des_LEDs ^= (1 << led_num);
 	}
-	// Allumer la LED (GPB0 à HIGH)
-	MCP23S17_Write(gpio, etat_des_LEDs);
+	if((led_num>=0 && led_num<=7 && gpio==MCPGPIOA)){
+		etat_des_LEDAs ^= (1 << led_num);
+		MCP23S17_Write(gpio, etat_des_LEDAs);
+	}
+	if((led_num>=0 && led_num<=7 && gpio==MCPGPIOB)){
+			etat_des_LEDBs ^= (1 << led_num);
+			MCP23S17_Write(gpio, etat_des_LEDBs);
+		}
 	return 0;
 }
 
