@@ -4,5 +4,5 @@
 ../shell/shell.c:43:12:sh_help	2
 ../shell/shell.c:54:6:shell_init	1
 ../shell/shell.c:68:5:shell_add	2
-../shell/shell.c:80:12:shell_exec	7
+../shell/shell.c:80:12:shell_exec	6
 ../shell/shell.c:118:5:shell_run	6
