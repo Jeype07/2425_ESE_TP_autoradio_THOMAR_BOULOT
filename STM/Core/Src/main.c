@@ -176,8 +176,6 @@ void task_chenillard(void *params) {
 	}
 }
 
-
-
 int startchenillard(h_shell_t * h_shell, int argc, char ** argv){
 
 	chenillard_running = 1; // Activer le chenillard
@@ -197,6 +195,19 @@ int startchenillard(h_shell_t * h_shell, int argc, char ** argv){
 	return 0;
 }
 
+int sglt5000_get_CHIP_ID_val(h_shell_t * h_shell, int argc, char ** argv){
+	uint8_t pData[2];
+	if (HAL_I2C_Mem_Read(&hi2c2, SGTL5000_ADDR, CHIP_ID,CHIP_ID_REG_SIZE, pData, sizeof(pData), HAL_MAX_DELAY)== HAL_OK){
+		int size = snprintf (h_shell->print_buffer, BUFFER_SIZE, "CHIP_ID value : %d\r\n", pData[1]);
+		h_shell->drv.transmit(h_shell->print_buffer, size);
+		return 0;
+	}
+	else{
+		int size = snprintf (h_shell->print_buffer, BUFFER_SIZE, "Error\r\n");
+		h_shell->drv.transmit(h_shell->print_buffer, size);
+		return -1;
+	}
+}
 
 void task_shell(void * unused)
 {
@@ -206,7 +217,7 @@ void task_shell(void * unused)
 	shell_add(&h_shell, 'b', ledToggle, "Allumer une led");
 	shell_add(&h_shell, 'c', ledReset, "Eteindre toutes les leds");
 	shell_add(&h_shell, 'd',startchenillard, "Lancer chenillard/Arreter chenillard");
-
+	shell_add(&h_shell, 'e',sglt5000_get_CHIP_ID_val, "ID Codec");
 	shell_run(&h_shell);	// boucle infinie
 }
 
@@ -253,7 +264,7 @@ int main(void)
 	/* USER CODE BEGIN 2 */
 	MCP23S17_Init();
 	__HAL_SAI_ENABLE(&hsai_BlockA2);
-	sglt5000_get_CHIP_ID_val();
+
 
 	h_shell.drv.receive = drv_uart2_receive;
 	h_shell.drv.transmit = drv_uart2_transmit;

@@ -10,10 +10,11 @@
 
 #include "stm32l4xx_hal.h"
 
+
 #define CHIP_ID 0x0000
 #define SGTL5000_ADDR 0x14 << 1
 #define CHIP_ID_REG_SIZE 16
 
-int sglt5000_get_CHIP_ID_val(void);
+//int sglt5000_get_CHIP_ID_val(h_shell_t * h_shell, int argc, char ** argv);
 
 #endif /* INC_SGTL5000_H_ */

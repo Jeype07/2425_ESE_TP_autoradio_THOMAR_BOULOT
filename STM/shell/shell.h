@@ -16,6 +16,7 @@ typedef uint8_t (* drv_shell_led)(uint8_t led_num, uint8_t gpio);
 typedef void (* drv_shell_MCP23S17_write)( uint8_t reg, uint8_t value);
 typedef void (* drv_shell_MCP23S17_init)(void);
 typedef uint8_t (* drv_shell_led_reset)(uint8_t rst);
+typedef uint8_t (* drv_shell_sgtl_id)(uint8_t rst);
 
 typedef struct shell_func_struct
 {
