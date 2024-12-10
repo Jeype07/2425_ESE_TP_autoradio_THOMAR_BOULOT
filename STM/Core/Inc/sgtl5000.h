@@ -8,6 +8,7 @@
 #ifndef INC_SGTL5000_H_
 #define INC_SGTL5000_H_
 
+#include <stdio.h>
 #include "stm32l4xx_hal.h"
 
 #define CHIP_ID 0x0000
