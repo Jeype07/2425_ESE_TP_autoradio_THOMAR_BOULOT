@@ -204,7 +204,8 @@ int sglt5000_get_CHIP_ID_val(h_shell_t * h_shell, int argc, char ** argv){
 	}
 	else{
 		int size = snprintf (h_shell->print_buffer, BUFFER_SIZE, "Error\r\n");
-		h_shell->drv.transmit(h_shell->print_buffer, size);
+				h_shell->drv.transmit(h_shell->print_buffer, size);
+
 		return -1;
 	}
 }
