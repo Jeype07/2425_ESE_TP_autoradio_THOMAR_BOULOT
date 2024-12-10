@@ -10,11 +10,15 @@
 
 #include <stdio.h>
 #include "stm32l4xx_hal.h"
+#include "i2c.h"
 
 
 #define CHIP_ID 0x0000
 #define SGTL5000_ADDR 0x14
 #define CHIP_ID_REG_SIZE 1
+#define SGTL5000_REG_SIZE 1
+
+//int sglt5000_get_CHIP_ID_val(h_shell_t * h_shell, int argc, char ** argv);
 
 typedef enum sgtl5000_registers_enum
 {
@@ -71,5 +75,9 @@ typedef enum sgtl5000_registers_enum
 	SGTL5000_DAP_COEF_WR_A2_LSB = 0x013A
 } sgtl5000_registers_t;
 
+typedef struct {
+	I2C_HandleTypeDef *hi2c;
+	uint16_t device_address;
+}h_sgtl5000_t;
 
 #endif /* INC_SGTL5000_H_ */
