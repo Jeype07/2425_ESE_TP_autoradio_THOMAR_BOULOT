@@ -3,6 +3,7 @@
 #include "cmsis_os.h"
 
 #include <stdio.h>
+#include <string.h>
 
 #include "usart.h"
 #include "gpio.h"
@@ -85,21 +86,24 @@ static int shell_exec(h_shell_t * h_shell, char * buf) {
 	char * argv[ARGC_MAX];
 	char *p;
 
-	for(i = 0 ; i < h_shell->func_list_size ; i++) {
-		if (h_shell->func_list[i].c == c) {
-			argc = 1;
-			if (sizeof(argv[0])==1){
-			argv[0] = buf;
+	argc = 1;
+	argv[0] = buf;
 
-			for(p = buf ; *p != '\0' && argc < ARGC_MAX ; p++){
-				if(*p == ' ') {
-					*p = '\0';
-					argv[argc++] = p+1;
+	if (strlen(argv[0])==1){
+		for(i = 0 ; i < h_shell->func_list_size ; i++) {
+			if (h_shell->func_list[i].c == c) {
+
+
+				for(p = buf ; *p != '\0' && argc < ARGC_MAX ; p++){
+					if(*p == ' ') {
+						*p = '\0';
+						argv[argc++] = p+1;
+					}
 				}
-			}
 
-			return h_shell->func_list[i].func(h_shell, argc, argv);
-		}}
+				return h_shell->func_list[i].func(h_shell, argc, argv);
+			}
+		}
 	}
 
 	int size;

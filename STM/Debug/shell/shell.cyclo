@@ -1,8 +1,8 @@
-../shell/shell.c:17:6:shell_uart_receive_irq_cb	2
-../shell/shell.c:26:13:uart_read	1
-../shell/shell.c:37:12:uart_write	1
-../shell/shell.c:42:12:sh_help	2
-../shell/shell.c:53:6:shell_init	1
-../shell/shell.c:67:5:shell_add	2
-../shell/shell.c:79:12:shell_exec	3
-../shell/shell.c:114:5:shell_run	6
+../shell/shell.c:18:6:shell_uart_receive_irq_cb	2
+../shell/shell.c:27:13:uart_read	1
+../shell/shell.c:38:12:uart_write	1
+../shell/shell.c:43:12:sh_help	2
+../shell/shell.c:54:6:shell_init	1
+../shell/shell.c:68:5:shell_add	2
+../shell/shell.c:80:12:shell_exec	7
+../shell/shell.c:118:5:shell_run	6
